@@ -1,32 +1,25 @@
 const express = require('express');
-const crypto = require('crypto'); //vai gerar um texto aleatório para o id
-const connection = require('./database/connection'); //conexão com o banco
+const OngController = require('./controllers/OngController');
+const IncidentController = require('./controllers/IncidentController');
+const ProfileController = require('./controllers/ProfileController');
+const SessionController = require('./controllers/SessionController');
 
 const routes = express.Router();
 
-//list
-routes.get('/ongs', async (request, response) => {
-    const ongs = await connection('ongs').select('*');
-    
-    return response.json(ongs);
-});
+//rota para login
+routes.post('/sessions', SessionController.create);
 
-//create
-routes.post('/ongs', async (request, response) => {
-    const { name, email, whatsapp, city, uf } = request.body;
-    const id = crypto.randomBytes(4).toString('HEX');
+//rotas das Ongs
+routes.get('/ongs', OngController.index);
+routes.post('/ongs', OngController.create);
 
-    await connection('ongs').insert({
-        id, 
-        name,
-        email,
-        whatsapp,
-        city,
-        uf,
-    });
+//rotas dos casos
+routes.get('/incidents', IncidentController.index);
+routes.post('/incidents', IncidentController.create);
+routes.delete('/incidents/:id', IncidentController.delete);
 
-    return response.json({ id });
-});
+//rota casos de Ong
+routes.get('/profile', ProfileController.index);
 
 
 module.exports = routes;
