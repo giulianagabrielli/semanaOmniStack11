@@ -1,13 +1,10 @@
 import React from 'react';
-import Header from './Header';
-
+import Logon from './pages/Logon'; //não precisa colocar o index.js pq ele sempre procura por esse nome de arquivo
+import './global.css'
 
 function App() {
   return (
-    <div>
-      <Header title="Semana OmniStack"/>
-      <button>Incrementar</button>
-    </div>
+    <Logon />
   
   );
 }
