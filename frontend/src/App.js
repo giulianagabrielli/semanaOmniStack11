@@ -1,10 +1,10 @@
 import React from 'react';
-import Logon from './pages/Logon'; //não precisa colocar o index.js pq ele sempre procura por esse nome de arquivo
 import './global.css'
+import Routes from './routes';
 
 function App() {
   return (
-    <Logon />
+    <Routes />
   
   );
 }
