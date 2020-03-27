@@ -1,5 +1,5 @@
 const connection = require('../database/connection'); //conexão com o banco
-const crypto = require('crypto'); //vai gerar um texto aleatório para o id
+const generateUniqueId = require('../utils/generateUniqueId');
 
 module.exports = {
 
@@ -14,7 +14,7 @@ module.exports = {
     async create(request, response){
         const { name, email, whatsapp, city, uf } = request.body;
 
-        const id = crypto.randomBytes(4).toString('HEX');
+        const id = generateUniqueId();
 
         await connection('ongs').insert({
             id, 
